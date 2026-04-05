@@ -1,5 +1,5 @@
-using ECommerce.Domain.Interfaces.Repositories;
 using ECommerce.Infrastructure.Persistence.Contexts;
+using ECommerce.Infrastructure.Persistence.Interceptors;
 using ECommerce.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +11,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        services.AddSingleton<AuditableEntityInterceptor>();
+
+        services.AddDbContext<AppDbContext>((sp, options) =>
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                   .AddInterceptors(sp.GetRequiredService<AuditableEntityInterceptor>()));
 
         services.Scan(scan => scan
             .FromAssembliesOf(typeof(AppDbContext))

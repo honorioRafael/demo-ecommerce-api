@@ -10,7 +10,7 @@ public record Email
     {
         if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value) || !value.Contains('@'))
             throw new DomainException("O Email é inválido.");
-        
+
         Value = value;
     }
 }

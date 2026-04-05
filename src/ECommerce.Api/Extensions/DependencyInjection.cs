@@ -1,9 +1,6 @@
-using ECommerce.Application.Commands;
 using ECommerce.Application.Behaviors;
+using ECommerce.Application.Commands;
 using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace ECommerce.Api.Extensions;
 
