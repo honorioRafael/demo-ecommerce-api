@@ -1,6 +1,6 @@
 # 🛒 Demo ECommerce
 
-Projeto de portfólio de uma API REST para um sistema de e-commerce, desenvolvido com foco em boas práticas de arquitetura e organização de código.
+Projeto de estudo de uma API REST para um sistema de e-commerce, desenvolvido com foco em boas práticas de arquitetura e organização de código.
 
 ## 🏗️ Arquitetura
 
