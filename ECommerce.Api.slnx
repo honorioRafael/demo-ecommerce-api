@@ -2,5 +2,8 @@
   <Project Path="src/ECommerce.Application/ECommerce.Application.csproj" Id="fb1d265c-6224-4689-9119-be64fed802d6" />
   <Project Path="src/ECommerce.Domain/ECommerce.Domain.csproj" Id="1d17c05f-87d8-4a63-9d3e-68e458392222" />
   <Project Path="src/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj" Id="2af381bb-a859-4c91-9640-a86216c0c3df" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
   <Project Path="src/ECommerce.Api/ECommerce.Api.csproj" />
 </Solution>
