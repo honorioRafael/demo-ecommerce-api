@@ -1,5 +1,6 @@
 using ECommerce.Api.Requests;
 using ECommerce.Application.Commands;
+using ECommerce.Application.Queries;
 using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,39 @@ public class UserController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> Create(CreateUserRequest request, CancellationToken cancellationToken)
     {
         var result = await mediator.Send((CreateUserCommand)request, cancellationToken);
+
+        return result.Match(
+            Ok,
+            HandleErrors
+        );
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetUserByIdQuery(id), cancellationToken);
+
+        return result.Match(
+            Ok,
+            HandleErrors
+        );
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
+
+        return result.Match(
+            Ok,
+            HandleErrors
+        );
+    }
+
+    [HttpGet("email/{email}")]
+    public async Task<IActionResult> GetByEmail(string email, CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetUserByEmailQuery(email), cancellationToken);
 
         return result.Match(
             Ok,
