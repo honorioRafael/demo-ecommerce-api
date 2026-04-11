@@ -13,6 +13,10 @@ public class CreateUserHandler(IUserRepository userRepository, IPasswordHasher p
 {
     public async Task<ErrorOr<UserDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+        User? existingUserByEmail = await userRepository.GetByEmailAsync(new Email(request.Email), cancellationToken);
+        if(existingUserByEmail != null)
+            return Error.Conflict("User.Email", "Já existe um usuário com esse email");
+
         string passwordHash = passwordHasher.Hash(request.Password);
 
         User user = new User(new Email(request.Email), passwordHash, request.FirstName, request.LastName, request.Nickname, request.Gender, request.Cpf != null ? new Cpf(request.Cpf) : null);

@@ -31,7 +31,7 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .IsInEnum();
 
         RuleFor(x => x.Cpf)
-            .NotEmpty().WithMessage("O Cpf é obrigatório")
-            .Length(11).WithMessage("O Cpf deve ter 11 caracteres");
+            .Length(11).WithMessage("O Cpf deve ter 11 caracteres")
+            .When(x => !string.IsNullOrEmpty(x.Cpf));
     }
 }
