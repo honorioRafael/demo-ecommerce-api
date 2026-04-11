@@ -1,4 +1,5 @@
 using ECommerce.Api.Extensions;
+using ECommerce.Api.Middlewares;
 using ECommerce.Infrastructure.DI;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -34,6 +35,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

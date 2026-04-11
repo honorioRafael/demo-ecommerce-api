@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
 public class UserController : BaseController
 {
     public UserController(IMediator mediator) : base(mediator) { }
