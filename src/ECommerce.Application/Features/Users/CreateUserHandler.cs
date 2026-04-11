@@ -1,12 +1,12 @@
-using ECommerce.Application.Commands;
-using ECommerce.Application.DTOs;
+using ECommerce.Application.Commands.Users;
+using ECommerce.Application.DTOs.Users;
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.Interfaces.Repositories;
 using ECommerce.Domain.ValueObjects;
 using ErrorOr;
 using MediatR;
 
-namespace ECommerce.Application.Features;
+namespace ECommerce.Application.Features.Users;
 
 public class CreateUserHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, ErrorOr<UserDto>>
 {

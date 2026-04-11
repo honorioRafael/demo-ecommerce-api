@@ -1,7 +1,7 @@
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.Enums;
 
-namespace ECommerce.Application.DTOs;
+namespace ECommerce.Application.DTOs.Users;
 
 public record UserDto(Guid Id, string Email, string FirstName, string LastName, string Nickname, Gender Gender, string? Cpf)
 {

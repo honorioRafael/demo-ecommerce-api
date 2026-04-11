@@ -1,9 +1,9 @@
-using ECommerce.Application.DTOs;
+using ECommerce.Application.DTOs.Users;
 using ECommerce.Domain.Enums;
 using ErrorOr;
 using MediatR;
 
-namespace ECommerce.Application.Commands;
+namespace ECommerce.Application.Commands.Users;
 
 public record CreateUserCommand : IRequest<ErrorOr<UserDto>>
 {

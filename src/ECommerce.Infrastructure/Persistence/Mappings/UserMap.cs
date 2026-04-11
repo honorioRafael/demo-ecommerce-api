@@ -38,13 +38,19 @@ public class UserMap : IEntityTypeConfiguration<User>
                 v => new Email(v)
             );
 
+        builder.HasIndex(x => x.Email)
+            .IsUnique();
+
         builder.Property(x => x.Cpf)
             .IsRequired(false)
             .HasMaxLength(11)
             .HasConversion(
-                v => v.Value,
+                v => v!.Value,
                 v => new Cpf(v)
             );
+
+        builder.HasIndex(x => x.Cpf)
+            .IsUnique();
     }
 }
 

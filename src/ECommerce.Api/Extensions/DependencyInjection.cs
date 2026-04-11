@@ -1,5 +1,5 @@
 using ECommerce.Application.Behaviors;
-using ECommerce.Application.Commands;
+using ECommerce.Application.Commands.Users;
 using FluentValidation;
 
 namespace ECommerce.Api.Extensions;

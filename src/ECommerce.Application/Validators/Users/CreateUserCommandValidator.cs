@@ -1,7 +1,7 @@
-﻿using ECommerce.Application.Commands;
+﻿using ECommerce.Application.Commands.Users;
 using FluentValidation;
 
-namespace ECommerce.Application.Validators;
+namespace ECommerce.Application.Validators.Users;
 
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {

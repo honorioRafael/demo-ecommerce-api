@@ -1,10 +1,10 @@
-using ECommerce.Application.DTOs;
-using ECommerce.Application.Queries;
+using ECommerce.Application.DTOs.Users;
+using ECommerce.Application.Queries.Users;
 using ECommerce.Domain.Interfaces.Repositories;
 using ErrorOr;
 using MediatR;
 
-namespace ECommerce.Application.Features;
+namespace ECommerce.Application.Features.Users;
 
 public class GetUserByIdHandler(IUserRepository userRepository) : IRequestHandler<GetUserByIdQuery, ErrorOr<UserDto>>
 {

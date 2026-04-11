@@ -1,7 +1,7 @@
-﻿using ECommerce.Application.Commands;
+﻿using ECommerce.Application.Commands.Users;
 using ECommerce.Domain.Enums;
 
-namespace ECommerce.Api.Requests;
+namespace ECommerce.Api.Requests.Users;
 
 public class CreateUserRequest
 {

@@ -1,7 +1,7 @@
 using ECommerce.Api.Controllers.Base;
-using ECommerce.Api.Requests;
-using ECommerce.Application.Commands;
-using ECommerce.Application.Queries;
+using ECommerce.Api.Requests.Users;
+using ECommerce.Application.Commands.Users;
+using ECommerce.Application.Queries.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

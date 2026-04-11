@@ -1,5 +1,4 @@
-﻿using ECommerce.Domain.Entities;
-using ECommerce.Domain.Entities.Base;
+﻿using ECommerce.Domain.Entities.Base;
 
 namespace ECommerce.Domain.Interfaces.Repositories.Base;
 

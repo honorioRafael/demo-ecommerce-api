@@ -1,7 +1,7 @@
-using ECommerce.Application.DTOs;
+using ECommerce.Application.DTOs.Users;
 using ErrorOr;
 using MediatR;
 
-namespace ECommerce.Application.Queries;
+namespace ECommerce.Application.Queries.Users;
 
 public record GetUserByEmailQuery(string Email) : IRequest<ErrorOr<UserDto>>;
