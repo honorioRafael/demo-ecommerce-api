@@ -1,6 +1,6 @@
 namespace ECommerce.Domain.Entities.Base;
 
-public abstract class BaseEntity : IBaseEntity
+public abstract class BaseEntity
 {
     public Guid Id { get; private set; }
     public DateTime CreatedAt { get; private set; }
