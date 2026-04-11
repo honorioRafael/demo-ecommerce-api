@@ -4,7 +4,7 @@ using ECommerce.Domain.ValueObjects;
 
 namespace ECommerce.Domain.Entities;
 
-public class User : BaseEntity<User>
+public class User : BaseEntity
 {
     public Email Email { get; private set; } = null!;
     public string PasswordHash { get; private set; } = null!;

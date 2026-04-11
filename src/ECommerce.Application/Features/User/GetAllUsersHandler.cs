@@ -10,7 +10,7 @@ public class GetAllUsersHandler(IUserRepository userRepository) : IRequestHandle
 {
     public async Task<ErrorOr<List<UserDto>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = await userRepository.GetAllAsync(cancellationToken);
+        var users = await userRepository.GetAllAsync(request.PageIndex, request.PageSize, cancellationToken: cancellationToken);
 
         return users.Select(u => (UserDto)u).ToList();
     }
