@@ -3,6 +3,7 @@ using ECommerce.Api.Requests.Users;
 using ECommerce.Application.Commands.Users;
 using ECommerce.Application.Queries.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers;
@@ -12,6 +13,7 @@ public class UserController : BaseController
     public UserController(IMediator mediator) : base(mediator) { }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Create(CreateUserRequest request, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send((CreateUserCommand)request, cancellationToken);

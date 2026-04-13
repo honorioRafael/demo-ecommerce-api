@@ -10,6 +10,6 @@ public abstract class BaseEntity
 
     protected BaseEntity()
     {
-        Id = Guid.NewGuid();
+        Id = Guid.CreateVersion7();
     }
 }

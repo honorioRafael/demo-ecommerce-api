@@ -1,11 +1,13 @@
 using ErrorOr;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers.Base;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class BaseController : ControllerBase
 {
     protected readonly IMediator _mediator;

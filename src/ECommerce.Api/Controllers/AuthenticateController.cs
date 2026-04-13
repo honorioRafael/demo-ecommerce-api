@@ -1,0 +1,26 @@
+using ECommerce.Api.Controllers.Base;
+using ECommerce.Api.Requests.Authenticate;
+using ECommerce.Application.Commands.Authenticate;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+
+namespace ECommerce.Api.Controllers;
+
+public class AuthenticateController : BaseController
+{
+    public AuthenticateController(IMediator mediator) : base(mediator) { }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [EnableRateLimiting("login")]
+    public async Task<IActionResult> Authenticate(AuthenticateRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send((AuthenticateCommand)request, cancellationToken);
+        return result.Match(
+            Ok,
+            HandleErrors
+        );
+    }
+}
