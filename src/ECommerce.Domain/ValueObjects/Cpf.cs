@@ -8,7 +8,7 @@ public record Cpf
 
     public Cpf(string value)
     {
-        if (string.IsNullOrEmpty(value) || !IsMathematicallyValid(value))
+        if (string.IsNullOrEmpty(value) || !IsValid(value))
             throw new DomainException("O Cpf é inválido.");
 
         Value = value;
@@ -22,7 +22,7 @@ public record Cpf
         return new Cpf(value);
     }
 
-    private static bool IsMathematicallyValid(string cpf)
+    public static bool IsValid(string cpf)
     {
         if (cpf.Length != 11)
             return false;

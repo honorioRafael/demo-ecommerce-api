@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.Commands.Users;
+using ECommerce.Application.Commands.Users;
+using ECommerce.Domain.ValueObjects;
 using FluentValidation;
 
 namespace ECommerce.Application.Validators.Users;
@@ -32,6 +33,8 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 
         RuleFor(x => x.Cpf)
             .Length(11).WithMessage("O Cpf deve ter 11 caracteres")
+            .Matches("^[0-9]{11}$").WithMessage("O Cpf deve conter apenas dígitos numéricos, sem máscara")
+            .Must(Cpf.IsValid).WithMessage("O Cpf é matematicamente inválido")
             .When(x => !string.IsNullOrEmpty(x.Cpf));
     }
 }
