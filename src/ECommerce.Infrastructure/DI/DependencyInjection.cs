@@ -18,14 +18,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<AuditableEntityInterceptor>();
+        services.AddScoped<AuditableEntityInterceptor>();
 
         services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
 
         #region Database
-        services.AddDbContext<AppDbContext>((sp, options) =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
-                   .AddInterceptors(sp.GetRequiredService<AuditableEntityInterceptor>()));
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         #endregion
 
         #region Authentication
@@ -36,8 +35,7 @@ public static class DependencyInjection
 
         services.AddSingleton<IJwtProvider, JwtProvider>();
 
-        var jwtSettings = configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>()
-            ?? throw new InvalidOperationException("JwtSettings section is missing from configuration.");
+        var jwtSettings = configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

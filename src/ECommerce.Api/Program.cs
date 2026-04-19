@@ -1,12 +1,19 @@
 using ECommerce.Api.Extensions;
 using ECommerce.Api.Middlewares;
+using ECommerce.Api.Services;
+using ECommerce.Application.Interfaces.Security;
 using ECommerce.Infrastructure.DI;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerUI;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddControllers();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
