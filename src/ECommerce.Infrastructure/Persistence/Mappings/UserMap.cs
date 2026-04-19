@@ -1,7 +1,8 @@
-﻿using ECommerce.Domain.Entities;
+using ECommerce.Domain.Entities;
 using ECommerce.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECommerce.Infrastructure.Persistence.Mappings;
 
@@ -35,22 +36,21 @@ public class UserMap : IEntityTypeConfiguration<User>
             .HasMaxLength(100)
             .HasConversion(
                 v => v.Value,
-                v => new Email(v)
-            );
+                v => new Email(v));
 
         builder.HasIndex(x => x.Email)
             .IsUnique();
 
+        var cpfConverter = new ValueConverter<Cpf?, string?>(
+            v => v == null ? null : v.Value,
+            v => v == null ? null : new Cpf(v));
+
         builder.Property(x => x.Cpf)
             .IsRequired(false)
             .HasMaxLength(11)
-            .HasConversion(
-                v => v!.Value,
-                v => new Cpf(v)
-            );
+            .HasConversion(cpfConverter);
 
-        builder.HasIndex(x => x.Cpf)
+        builder.HasIndex(nameof(User.Cpf))
             .IsUnique();
     }
 }
-

@@ -27,7 +27,7 @@ public class MerchantMap : IEntityTypeConfiguration<Merchant>
                 v => v.Value,
                 v => new Cnpj(v));
 
-        builder.HasIndex(x => x.Cnpj)
+        builder.HasIndex(nameof(Merchant.Cnpj))
             .IsUnique();
     }
 }
