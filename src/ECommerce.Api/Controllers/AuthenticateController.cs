@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace ECommerce.Api.Controllers;
 
+[Route("api/auth")]
 public class AuthenticateController : BaseController
 {
     public AuthenticateController(IMediator mediator) : base(mediator) { }
 
-    [HttpPost]
+    [HttpPost("login")]
     [AllowAnonymous]
     [EnableRateLimiting("login")]
     public async Task<IActionResult> Authenticate(AuthenticateRequest request, CancellationToken cancellationToken)

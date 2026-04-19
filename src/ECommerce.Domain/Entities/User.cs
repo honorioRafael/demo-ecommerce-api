@@ -32,10 +32,12 @@ public class User : BaseEntity
         Email = email;
     }
 
-    public void UpdateProfile(string firstName, string lastName, string nickname)
+    public void Update(string firstName, string lastName, string nickname, Gender gender, Cpf? cpf)
     {
         FirstName = firstName;
         LastName = lastName;
         Nickname = nickname;
+        Gender = gender;
+        Cpf = cpf;
     }
 }

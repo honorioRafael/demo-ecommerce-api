@@ -19,7 +19,7 @@ public class CreateUserHandler(IUserRepository userRepository, IPasswordHasher p
 
         string passwordHash = passwordHasher.Hash(request.Password);
 
-        User user = new User(new Email(request.Email), passwordHash, request.FirstName, request.LastName, request.Nickname, request.Gender, request.Cpf != null ? new Cpf(request.Cpf) : null);
+        User user = new User(new Email(request.Email), passwordHash, request.FirstName, request.LastName, request.Nickname, request.Gender, Cpf.TryParse(request.Cpf));
 
         await userRepository.CreateAsync(user, cancellationToken);
         await userRepository.SaveChangesAsync(cancellationToken);

@@ -14,6 +14,14 @@ public record Cpf
         Value = value;
     }
 
+    public static Cpf? TryParse(string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return null;
+
+        return new Cpf(value);
+    }
+
     private static bool IsMathematicallyValid(string cpf)
     {
         if (cpf.Length != 11)
