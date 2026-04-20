@@ -1,6 +1,7 @@
 using ECommerce.Api.Controllers.Base;
 using ECommerce.Api.Requests.Merchants;
 using ECommerce.Application.Commands.Merchants;
+using ECommerce.Application.Interfaces.Security;
 using ECommerce.Application.Queries.Merchants;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,10 @@ public class MerchantController : BaseController
 
     #region Create
     [HttpPost]
-    public async Task<IActionResult> Create(CreateMerchantRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create(CreateMerchantRequest request, CancellationToken cancellationToken, ICurrentUserService currentUserService)
     {
-        var result = await _mediator.Send(request.ConvertToCommand(), cancellationToken);
+        Guid loggedUserId = currentUserService.UserId!.Value;
+        var result = await _mediator.Send(request.ConvertToCommand(loggedUserId), cancellationToken);
         return result.Match(
             value => CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value),
             HandleErrors
@@ -64,6 +66,18 @@ public class MerchantController : BaseController
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new DeleteMerchantCommand(id), cancellationToken);
+        return result.Match(
+            _ => NoContent(),
+            HandleErrors
+        );
+    }
+    #endregion
+
+    #region User
+    [HttpPost("{id:guid}/users/{userId:guid}")]
+    public async Task<IActionResult> AddUserToMerchant(Guid id, Guid userId, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new AddUserToMerchantCommand(id, userId), cancellationToken);
         return result.Match(
             _ => NoContent(),
             HandleErrors

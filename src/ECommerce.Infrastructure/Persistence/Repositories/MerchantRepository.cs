@@ -15,4 +15,9 @@ public class MerchantRepository : BaseRepository<Merchant>, IMerchantRepository
     {
         return await _dbSet.FirstOrDefaultAsync(x => x.Cnpj == cnpj, cancellationToken);
     }
+
+    public async Task<bool> UserExistsAsync(Guid merchantId, Guid userId, CancellationToken cancellationToken = default)
+    {
+        return await _context.Set<MerchantUser>().AnyAsync(x => x.MerchantId == merchantId && x.UserId == userId, cancellationToken);
+    }
 }

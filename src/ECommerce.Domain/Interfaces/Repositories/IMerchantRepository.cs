@@ -7,4 +7,5 @@ namespace ECommerce.Domain.Interfaces.Repositories;
 public interface IMerchantRepository : IBaseRepository<Merchant>
 {
     Task<Merchant?> GetByCnpjAsync(Cnpj cnpj, CancellationToken cancellationToken = default);
+    Task<bool> UserExistsAsync(Guid merchantId, Guid userId, CancellationToken cancellationToken = default);
 }

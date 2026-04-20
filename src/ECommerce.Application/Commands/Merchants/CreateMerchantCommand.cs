@@ -4,7 +4,4 @@ using MediatR;
 
 namespace ECommerce.Application.Commands.Merchants;
 
-public record CreateMerchantCommand(
-    string TradeName,
-    string LegalName,
-    string Cnpj) : IRequest<ErrorOr<MerchantDto>>;
+public record CreateMerchantCommand(string TradeName, string LegalName, string Cnpj, Guid LoggedUserId) : IRequest<ErrorOr<MerchantDto>>;

@@ -12,6 +12,7 @@ public class UserMap : IEntityTypeConfiguration<User>
     {
         builder.ToTable("user");
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.PasswordHash)
             .HasMaxLength(500)

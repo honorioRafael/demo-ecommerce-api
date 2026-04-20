@@ -17,6 +17,7 @@ public class CreateMerchantHandler(IMerchantRepository merchantRepository) : IRe
             return Error.Conflict("Merchant.Cnpj", "Já existe um merchant com esse CNPJ.");
 
         Merchant merchant = new Merchant(request.TradeName, request.LegalName, new Cnpj(request.Cnpj));
+        merchant.AddUser(request.LoggedUserId);
 
         await merchantRepository.CreateAsync(merchant, cancellationToken);
         await merchantRepository.SaveChangesAsync(cancellationToken);
