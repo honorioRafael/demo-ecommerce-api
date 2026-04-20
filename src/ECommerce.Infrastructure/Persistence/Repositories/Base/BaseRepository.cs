@@ -1,4 +1,4 @@
-﻿using ECommerce.Domain.Entities.Base;
+using ECommerce.Domain.Entities.Base;
 using ECommerce.Domain.Interfaces.Repositories.Base;
 using ECommerce.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -72,13 +72,6 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
     {
         _dbSet.RemoveRange(entities);
         return entities;
-    }
-    #endregion
-
-    #region SaveChanges
-    public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        return await _context.SaveChangesAsync(cancellationToken);
     }
     #endregion
 }

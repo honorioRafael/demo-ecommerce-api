@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Addresses;
 
-public class DeleteAddressHandler(IAddressRepository addressRepository) : IRequestHandler<DeleteAddressCommand, ErrorOr<Deleted>>
+public class DeleteAddressHandler(IAddressRepository addressRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteAddressCommand, ErrorOr<Deleted>>
 {
     public async Task<ErrorOr<Deleted>> Handle(DeleteAddressCommand request, CancellationToken cancellationToken)
     {
@@ -15,7 +15,7 @@ public class DeleteAddressHandler(IAddressRepository addressRepository) : IReque
             return Error.NotFound(code: "Address.NotFound", description: "Address not found.");
 
         addressRepository.Delete(address);
-        await addressRepository.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Deleted;
     }

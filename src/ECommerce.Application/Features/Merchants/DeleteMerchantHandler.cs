@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Merchants;
 
-public class DeleteMerchantHandler(IMerchantRepository merchantRepository) : IRequestHandler<DeleteMerchantCommand, ErrorOr<Deleted>>
+public class DeleteMerchantHandler(IMerchantRepository merchantRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteMerchantCommand, ErrorOr<Deleted>>
 {
     public async Task<ErrorOr<Deleted>> Handle(DeleteMerchantCommand request, CancellationToken cancellationToken)
     {
@@ -15,7 +15,7 @@ public class DeleteMerchantHandler(IMerchantRepository merchantRepository) : IRe
             return Error.NotFound(code: "Merchant.NotFound", description: "Merchant not found.");
 
         merchantRepository.Delete(merchant);
-        await merchantRepository.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Deleted;
     }

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Users;
 
-public class UpdateUserHandler(IUserRepository userRepository) : IRequestHandler<UpdateUserCommand, ErrorOr<Success>>
+public class UpdateUserHandler(IUserRepository userRepository, IUnitOfWork unitOfWork) : IRequestHandler<UpdateUserCommand, ErrorOr<Success>>
 {
     public async Task<ErrorOr<Success>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
@@ -16,8 +16,7 @@ public class UpdateUserHandler(IUserRepository userRepository) : IRequestHandler
             return Error.NotFound(code: "User.NotFound", description: "User not found.");
 
         user.Update(request.FirstName, request.LastName, request.Nickname, request.Gender, Cpf.TryParse(request.Cpf));
-        userRepository.Update(user);
-        await userRepository.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success;
     }

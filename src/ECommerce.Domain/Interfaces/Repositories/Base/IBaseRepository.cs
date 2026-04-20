@@ -1,4 +1,4 @@
-﻿using ECommerce.Domain.Entities.Base;
+using ECommerce.Domain.Entities.Base;
 
 namespace ECommerce.Domain.Interfaces.Repositories.Base;
 
@@ -23,9 +23,5 @@ public interface IBaseRepository<TEntity>
     #region Delete
     TEntity Delete(TEntity entity);
     List<TEntity> DeleteBatch(List<TEntity> entities);
-    #endregion
-
-    #region SaveChanges
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     #endregion
 }

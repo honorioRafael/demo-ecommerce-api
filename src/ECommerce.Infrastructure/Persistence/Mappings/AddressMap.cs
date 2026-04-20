@@ -1,17 +1,17 @@
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.ValueObjects;
+using ECommerce.Infrastructure.Persistence.Mappings.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ECommerce.Infrastructure.Persistence.Mappings;
 
-public class AddressMap : IEntityTypeConfiguration<Address>
+public class AddressMap : BaseMap<Address>
 {
-    public void Configure(EntityTypeBuilder<Address> builder)
+    public override void Configure(EntityTypeBuilder<Address> builder)
     {
+        base.Configure(builder);
         builder.ToTable("address");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.Name)
             .HasMaxLength(100)

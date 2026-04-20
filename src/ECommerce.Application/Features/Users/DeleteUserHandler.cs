@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Users;
 
-public class DeleteUserHandler(IUserRepository userRepository) : IRequestHandler<DeleteUserCommand, ErrorOr<Deleted>>
+public class DeleteUserHandler(IUserRepository userRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteUserCommand, ErrorOr<Deleted>>
 {
     public async Task<ErrorOr<Deleted>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
@@ -14,8 +14,8 @@ public class DeleteUserHandler(IUserRepository userRepository) : IRequestHandler
         if (user is null)
             return Error.NotFound(code: "User.NotFound", description: "User not found.");
 
-        userRepository.Delete(user);
-        await userRepository.SaveChangesAsync(cancellationToken);
+        user.MarkAsDeleted();
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Deleted;
     }

@@ -9,7 +9,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Users;
 
-public class CreateUserHandler(IUserRepository userRepository, IPasswordHasher passwordHasher) : IRequestHandler<CreateUserCommand, ErrorOr<UserDto>>
+public class CreateUserHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IUnitOfWork unitOfWork) : IRequestHandler<CreateUserCommand, ErrorOr<UserDto>>
 {
     public async Task<ErrorOr<UserDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
@@ -22,7 +22,7 @@ public class CreateUserHandler(IUserRepository userRepository, IPasswordHasher p
         User user = new User(new Email(request.Email), passwordHash, request.FirstName, request.LastName, request.Nickname, request.Gender, Cpf.TryParse(request.Cpf));
 
         await userRepository.CreateAsync(user, cancellationToken);
-        await userRepository.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return (UserDto)user;
     }

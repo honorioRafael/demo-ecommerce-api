@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Merchants;
 
-public class CreateMerchantHandler(IMerchantRepository merchantRepository) : IRequestHandler<CreateMerchantCommand, ErrorOr<MerchantDto>>
+public class CreateMerchantHandler(IMerchantRepository merchantRepository, IUnitOfWork unitOfWork) : IRequestHandler<CreateMerchantCommand, ErrorOr<MerchantDto>>
 {
     public async Task<ErrorOr<MerchantDto>> Handle(CreateMerchantCommand request, CancellationToken cancellationToken)
     {
@@ -20,7 +20,7 @@ public class CreateMerchantHandler(IMerchantRepository merchantRepository) : IRe
         merchant.AddUser(request.LoggedUserId);
 
         await merchantRepository.CreateAsync(merchant, cancellationToken);
-        await merchantRepository.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return (MerchantDto)merchant;
     }

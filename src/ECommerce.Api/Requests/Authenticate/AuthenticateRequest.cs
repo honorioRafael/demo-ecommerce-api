@@ -7,5 +7,5 @@ public record AuthenticateRequest
     public string Email { get; init; } = string.Empty;
     public string Password { get; init; } = string.Empty;
 
-    public static implicit operator AuthenticateCommand(AuthenticateRequest request) => new AuthenticateCommand(request.Email, request.Password);
+    public AuthenticateCommand ConvertToCommand() => new AuthenticateCommand(Email, Password);
 };

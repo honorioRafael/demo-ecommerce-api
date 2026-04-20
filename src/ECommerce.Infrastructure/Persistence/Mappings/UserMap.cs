@@ -1,18 +1,18 @@
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.ValueObjects;
+using ECommerce.Infrastructure.Persistence.Mappings.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECommerce.Infrastructure.Persistence.Mappings;
 
-public class UserMap : IEntityTypeConfiguration<User>
+public class UserMap : BaseMap<User>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public override void Configure(EntityTypeBuilder<User> builder)
     {
+        base.Configure(builder);
         builder.ToTable("user");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.PasswordHash)
             .HasMaxLength(500)

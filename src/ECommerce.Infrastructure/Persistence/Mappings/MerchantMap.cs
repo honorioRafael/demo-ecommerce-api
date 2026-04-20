@@ -1,17 +1,17 @@
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.ValueObjects;
+using ECommerce.Infrastructure.Persistence.Mappings.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ECommerce.Infrastructure.Persistence.Mappings;
 
-public class MerchantMap : IEntityTypeConfiguration<Merchant>
+public class MerchantMap : BaseMap<Merchant>
 {
-    public void Configure(EntityTypeBuilder<Merchant> builder)
+    public override void Configure(EntityTypeBuilder<Merchant> builder)
     {
+        base.Configure(builder);
         builder.ToTable("merchant");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.TradeName)
             .HasMaxLength(100)

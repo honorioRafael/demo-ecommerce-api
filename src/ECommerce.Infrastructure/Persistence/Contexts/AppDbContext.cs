@@ -8,9 +8,9 @@ public class AppDbContext : DbContext
 {
     private readonly AuditableEntityInterceptor _auditableEntityInterceptor;
 
-    public DbSet<User> User => Set<User>();
-    public DbSet<Address> Address => Set<Address>();
-    public DbSet<Merchant> Merchant => Set<Merchant>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Address> Addresses => Set<Address>();
+    public DbSet<Merchant> Merchants => Set<Merchant>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options, AuditableEntityInterceptor auditableEntityInterceptor) : base(options)
     {

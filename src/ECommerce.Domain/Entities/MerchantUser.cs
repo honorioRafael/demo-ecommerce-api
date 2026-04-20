@@ -8,8 +8,8 @@ public class MerchantUser : BaseEntity
     public Guid UserId { get; private set; }
 
     #region Navigation Properties
-    public Merchant Merchant { get; private set; }
-    public User User { get; private set; }
+    public Merchant Merchant { get; private set; } = null!;
+    public User User { get; private set; } = null!;
     #endregion
 
     protected MerchantUser() { }

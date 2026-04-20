@@ -1,16 +1,16 @@
 using ECommerce.Domain.Entities;
+using ECommerce.Infrastructure.Persistence.Mappings.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ECommerce.Infrastructure.Persistence.Mappings;
 
-public class MerchantUserMap : IEntityTypeConfiguration<MerchantUser>
+public class MerchantUserMap : BaseMap<MerchantUser>
 {
-    public void Configure(EntityTypeBuilder<MerchantUser> builder)
+    public override void Configure(EntityTypeBuilder<MerchantUser> builder)
     {
+        base.Configure(builder);
         builder.ToTable("merchant_user");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.HasOne(x => x.Merchant)
             .WithMany(x => x.Users)

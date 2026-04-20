@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Addresses;
 
-public class UpdateAddressHandler(IAddressRepository addressRepository) : IRequestHandler<UpdateAddressCommand, ErrorOr<Success>>
+public class UpdateAddressHandler(IAddressRepository addressRepository, IUnitOfWork unitOfWork) : IRequestHandler<UpdateAddressCommand, ErrorOr<Success>>
 {
     public async Task<ErrorOr<Success>> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
     {
@@ -17,8 +17,7 @@ public class UpdateAddressHandler(IAddressRepository addressRepository) : IReque
 
         address.Update(request.Name, request.Street, request.Number, request.Complement, request.Neighborhood, request.City, request.State, request.Country, new ZipCode(request.ZipCode));
 
-        addressRepository.Update(address);
-        await addressRepository.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success;
     }

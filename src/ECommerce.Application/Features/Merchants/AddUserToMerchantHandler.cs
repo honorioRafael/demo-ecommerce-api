@@ -1,4 +1,4 @@
-﻿using ECommerce.Application.Commands.Merchants;
+using ECommerce.Application.Commands.Merchants;
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.Interfaces.Repositories;
 using ErrorOr;
@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ECommerce.Application.Features.Merchants;
 
-public class AddUserToMerchantHandler(IMerchantRepository merchantRepository, IUserRepository userRepository) : IRequestHandler<AddUserToMerchantCommand, ErrorOr<Success>>
+public class AddUserToMerchantHandler(IMerchantRepository merchantRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IRequestHandler<AddUserToMerchantCommand, ErrorOr<Success>>
 {
     public async Task<ErrorOr<Success>> Handle(AddUserToMerchantCommand request, CancellationToken cancellationToken)
     {
@@ -23,7 +23,7 @@ public class AddUserToMerchantHandler(IMerchantRepository merchantRepository, IU
             return Error.Conflict("User.AlreadyExists", "Já existe vinculo entre esse User e Merchant.");
 
         merchant.AddUser(user.Id);
-        await merchantRepository.SaveChangesAsync();
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success;
     }
