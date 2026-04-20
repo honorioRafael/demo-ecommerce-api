@@ -1,10 +1,11 @@
-# 🛒 Demo ECommerce
+# ECommerce
 
-Projeto de estudo de uma API REST para um sistema de e-commerce, desenvolvido com foco em boas práticas de arquitetura e organização de código.
+API REST para um sistema de e-commerce com suporte a cadastro de usuários, vendedores, produtos, carrinho, pedidos e pagamentos, com autenticação via JWT.
+Desenvolvido como projeto de estudo com foco em Clean Architecture, Domain Driven Design (DDD), CQRS e boas práticas do ecossistema .NET.
 
-## 🏗️ Arquitetura
+## Arquitetura
 
-O projeto segue os princípios da **Clean Architecture**, organizado nas seguintes camadas:
+O projeto segue os princípios da **Clean Architecture** e **DDD**, organizado nas seguintes camadas:
 
 ```
 ECommerce/
@@ -14,15 +15,21 @@ ECommerce/
 │   ├── ECommerce.Infrastructure  # Repositórios, EF Core, contexto do banco
 │   └── ECommerce.Api             # Controllers, middlewares, configuração da API
 └── tests/
+    └── TBD 🤞
 ```
 
-## 🚀 Tecnologias
+## Tecnologias Utilizadas
 
 - [.NET / C#](https://dotnet.microsoft.com/) — plataforma principal da API
+- [Entity Framework Core](https://learn.microsoft.com/ef/core/) — ORM para acesso ao banco de dados
+- [MediatR](https://github.com/jbogard/MediatR) — implementação do padrão CQRS
+- [FluentValidation](https://docs.fluentvalidation.net/) — validação de comandos e requisições
+- [ErrorOr](https://github.com/amantinband/error-or) — tratamento de erros sem exceções via padrão Result
+- [JWT Bearer](https://learn.microsoft.com/aspnet/core/security/authentication/) — autenticação e autorização via tokens JWT
 - [PostgreSQL](https://www.postgresql.org/) — banco de dados relacional
 - [Docker](https://www.docker.com/) — containerização do ambiente
 
-## ⚙️ Como executar
+## Como Executar
 
 ### Pré-requisitos
 
@@ -39,12 +46,6 @@ Copie o arquivo de exemplo e preencha com seus valores:
 cp .env.example .env
 ```
 
-Exemplo de `.env`:
-
-```env
-ConnectionStrings__DefaultConnection=Host=db;Database=ecommerce_db;Username=postgres;Password=postgres
-```
-
 ---
 
 ### 2. Subir os containers
@@ -59,22 +60,25 @@ Isso irá inicializar tanto a API quanto o banco de dados PostgreSQL.
 
 ### 3. Executar as migrations
 
-Para criar uma nova migration:
-```bash
-dotnet ef migrations add NomeDaMigration --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api
-```
+Com o banco de dados acessível, aplique as migrations para criar o schema:
 
-Para reverter a última migration aplicada:
-```bash
-dotnet ef database update NomeDaMigrationAnterior --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api --connection "<sua connection string>"
-```
-
-Com o banco de dados configurado e acessível, aplique as migrations para criar o schema, informando a connection string:
 ```bash
 dotnet ef database update --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api --connection "<sua connection string>"
 ```
 
-> **Nota**: A ``connection string`` é a mesma que está no arquivo ``.env``
+> **Nota**: A `connection string` é a mesma definida no arquivo `.env`.
+
+Para criar uma nova migration:
+
+```bash
+dotnet ef migrations add NomeDaMigration --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api
+```
+
+Para reverter para uma migration anterior:
+
+```bash
+dotnet ef database update NomeDaMigrationAnterior --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api --connection "<sua connection string>"
+```
 
 ---
 
@@ -85,13 +89,15 @@ Com os containers no ar e as migrations aplicadas, a documentação Swagger esta
 ```
 http://localhost:8080/swagger
 ```
+
 ou
+
 ```
 https://localhost:8081/swagger
 ```
 
 ---
 
-## 📄 Licença
+## Licença
 
-Este projeto é de uso livre para fins educacionais e de portfólio.
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
