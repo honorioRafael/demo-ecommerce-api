@@ -100,4 +100,4 @@ https://localhost:8081/swagger
 
 ## Licença
 
-Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE.txt) para mais detalhes.
