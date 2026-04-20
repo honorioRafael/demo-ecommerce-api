@@ -59,23 +59,22 @@ Isso irá inicializar tanto a API quanto o banco de dados PostgreSQL.
 
 ### 3. Executar as migrations
 
-> **Atenção:** o `dotnet ef` roda fora do Docker e não lê o `.env` diretamente. Por isso, é necessário configurar a connection string no arquivo `src/ECommerce.Api/appsettings.Development.json` antes de rodar as migrations.
-
-Crie ou edite o arquivo `appsettings.Development.json` (já incluso no `.gitignore`):
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=ecommerce_db;Username=postgres;Password=postgres"
-  }
-}
-```
-
-Em seguida, execute:
-
+Para criar uma nova migration:
 ```bash
-dotnet ef database update --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api
+dotnet ef migrations add NomeDaMigration --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api
 ```
+
+Para reverter a última migration aplicada:
+```bash
+dotnet ef database update NomeDaMigrationAnterior --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api --connection "<sua connection string>"
+```
+
+Com o banco de dados configurado e acessível, aplique as migrations para criar o schema, informando a connection string:
+```bash
+dotnet ef database update --project src/ECommerce.Infrastructure --startup-project src/ECommerce.Api --connection "<sua connection string>"
+```
+
+> **Nota**: A ``connection string`` é a mesma que está no arquivo ``.env``
 
 ---
 
