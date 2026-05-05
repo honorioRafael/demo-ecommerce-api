@@ -1,4 +1,4 @@
-using ECommerce.Domain.Entities;
+using ECommerce.Domain.Entities.Base;
 using ECommerce.Infrastructure.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +7,6 @@ namespace ECommerce.Infrastructure.Persistence.Contexts;
 public class AppDbContext : DbContext
 {
     private readonly AuditableEntityInterceptor _auditableEntityInterceptor;
-
-    public DbSet<User> Users => Set<User>();
-    public DbSet<Address> Addresses => Set<Address>();
-    public DbSet<Merchant> Merchants => Set<Merchant>();
-    public DbSet<Product> Products => Set<Product>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options, AuditableEntityInterceptor auditableEntityInterceptor) : base(options)
     {
@@ -27,6 +22,13 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        var entityTypes = typeof(BaseEntity).Assembly.GetTypes().Where(t => typeof(BaseEntity).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+        foreach (var type in entityTypes)
+        {
+            modelBuilder.Entity(type);
+        }
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }

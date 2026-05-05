@@ -49,7 +49,7 @@ public class Product : BaseEntity
     public void ApplyDiscount()
     {
         FinalPrice = Price.Value - DiscountRate.CalculateAmount(Price.Value);
-        if(FinalPrice < 0)
+        if (FinalPrice < 0)
             throw new DomainException("O preço final não pode ser negativo.");
     }
 

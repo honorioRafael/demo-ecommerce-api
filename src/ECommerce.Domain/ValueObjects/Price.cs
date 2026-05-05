@@ -8,7 +8,7 @@ public record Price
 
     public Price(decimal value)
     {
-        if(value < 0)
+        if (value < 0)
             throw new DomainException("O preço não pode ser menor do que 0");
 
         Value = value;

@@ -8,7 +8,7 @@ public record Rating
 
     public Rating(int value)
     {
-        if(value < 0 || value > 5)
+        if (value < 0 || value > 5)
             throw new DomainException("A avaliação deve ser entre 0 e 5.");
 
         Value = value;

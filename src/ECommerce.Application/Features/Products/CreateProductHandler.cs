@@ -13,7 +13,7 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
     public async Task<ErrorOr<ProductDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         Merchant? relatedMerchant = await merchantRepository.GetByIdAsync(request.MerchantId);
-        if(relatedMerchant is null)
+        if (relatedMerchant is null)
             return Error.NotFound(description: "Nenhum Merchant foi encontrado com o ID fornecido.");
 
         var product = new Product(
