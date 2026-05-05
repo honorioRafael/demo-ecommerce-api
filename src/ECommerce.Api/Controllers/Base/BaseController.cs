@@ -7,6 +7,7 @@ namespace ECommerce.Api.Controllers.Base;
 
 [Authorize]
 [ApiController]
+[Route("api/[controller]")]
 public class BaseController : ControllerBase
 {
     protected readonly IMediator _mediator;

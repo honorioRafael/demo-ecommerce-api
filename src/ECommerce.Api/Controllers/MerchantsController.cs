@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers;
 
-[Route("api/merchants")]
-public class MerchantController : BaseController
+public class MerchantsController : BaseController
 {
-    public MerchantController(IMediator mediator) : base(mediator) { }
+    public MerchantsController(IMediator mediator) : base(mediator) { }
 
     #region Create
     [HttpPost]

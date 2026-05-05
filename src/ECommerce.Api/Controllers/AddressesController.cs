@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers;
 
-[Route("api/addresses")]
-public class AddressController : BaseController
+public class AddressesController : BaseController
 {
-    public AddressController(IMediator mediator) : base(mediator) { }
+    public AddressesController(IMediator mediator) : base(mediator) { }
 
     #region Create
     [HttpPost]
